@@ -143,9 +143,18 @@ function operate(a,b, operator) {
 //Changes sign of a number
 function signButton() {
     //If there already is an operator np. 12+
+    let temp = "";
     if(isOperator) {
-        let temp = displayContainer.value.split(lastOperator);
 
+        //Fixes case when the operation is subtraction, first sign is "-" so 
+        //Spliting by "-" doesn't work as intended
+        if(displayContainer.value.charAt(0) == "-") {
+            temp = displayContainer.value.substr(1).split(lastOperator);
+            temp[0] = "-"+temp[0];
+        }
+        else {
+            temp = displayContainer.value.split(lastOperator);
+        }
         //If the number is already negative ex. 12/-3
         if(temp[1].charAt(0) == "-") {
             temp[1] = temp[1].substr(1);
